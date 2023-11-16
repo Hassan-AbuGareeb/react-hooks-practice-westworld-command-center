@@ -1,18 +1,25 @@
 import React from "react";
 import "../stylesheets/Area.css";
-
-function Area() {
+import HostList from "./HostList";
+function Area(props) {
+  const { name } = props.info;
+  const formattedName = name
+    .split("_")
+    .map((name) => {
+      return name.charAt(0).toUpperCase() + name.slice(1);
+    })
+    .join(" ");
   return (
-    <div
-      className="area"
-      id={
-        /* Pass in the area name here to make sure this is styled correctly */ "id"
+    <div className="area" id={name}>
+      <h3 className="labels">{formattedName}</h3>
+      {
+        <HostList
+          hosts={props.hosts}
+          place={"area"}
+          selectedId={props.selectedId}
+          changeSelected={props.changeSelected}
+        />
       }
-    >
-      <h3 className="labels">
-        {/* Don't just pass in the name from the data...clean that thing up */}
-      </h3>
-      {/* See Checkpoint 1 item 2 in the Readme for a clue as to what goes here */}
     </div>
   );
 }
